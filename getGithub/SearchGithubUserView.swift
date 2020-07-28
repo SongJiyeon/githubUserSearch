@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 struct GithubUser: Identifiable {
     let id: Int
@@ -14,33 +15,32 @@ struct GithubUser: Identifiable {
     let reposCount: Int
 }
 
-struct ContentView: View {
-    
-    let apiService = GithubUserService()
+struct SearchGithubUserView: View {
     
     @State private var text: String = ""
     @State private var users: [GithubUser] = (1...50).map {
         GithubUser(id: $0, name: "user \($0)", reposCount: $0)
     }
+    @ObservedObject var viewModel: SearchGithubUserViewModel = SearchGithubUserViewModel()
     
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                Button("click") {
-                    self.apiService.getUsers()
+                HStack {
+                    TextField("Enter github username", text: $viewModel.keyword)
+                        .frame(width: 300)
                 }
-                TextField("Enter github username", text: $text)
-                    .padding([.leading, .trailing], 30)
-                    .frame(height: 50)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.gray, lineWidth: 2)
-                            .padding([.leading, .trailing], 10)
-                    )
+                .frame(width: 380)
+                .frame(height: 50)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.gray, lineWidth: 2)
+                        .padding([.leading, .trailing], 10)
+                )
                 ScrollView(.vertical) {
                     VStack(spacing: 0) {
-                        ForEach(users) { user in
-                            SearchResult(name: user.name, reposCount: user.reposCount)
+                        ForEach(viewModel.users) { user in
+                            UserRow(viewModel: self.viewModel, user: user)
                             Divider()
                         }
                         .padding([.leading, .trailing], 15)
@@ -52,26 +52,25 @@ struct ContentView: View {
     }
 }
 
-struct SearchResult: View {
+struct UserRow: View {
     
-    var name: String
-    var reposCount: Int
+    @ObservedObject var viewModel: SearchGithubUserViewModel
+    @State var user: UserForView
     
     var body: some View {
         HStack {
-            Image("github-empty")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
+            KFImage(user.avatar_url)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 50, height: 50)
             VStack(alignment: .leading) {
-                Text("\(name)")
+                Text("\(user.login)")
                     .font(.system(size: 20))
                 Spacer()
                     .frame(height: 5)
-                Text("Number of repos: \(reposCount)")
+                Text("Number of repos: \(user.public_repos)")
                     .font(.system(size: 15))
                     .foregroundColor(Color.gray)
-                
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -79,8 +78,8 @@ struct SearchResult: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SearchGithubUserView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SearchGithubUserView()
     }
 }

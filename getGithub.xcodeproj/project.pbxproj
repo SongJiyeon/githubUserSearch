@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		045E57A124CE87E90049F9DF /* GithubUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045E57A024CE87E90049F9DF /* GithubUserService.swift */; };
 		048F8D9924CAB88E002318F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F8D9824CAB88E002318F2 /* AppDelegate.swift */; };
 		048F8D9B24CAB88E002318F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F8D9A24CAB88E002318F2 /* SceneDelegate.swift */; };
 		048F8D9D24CAB88E002318F2 /* SearchGithubUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F8D9C24CAB88E002318F2 /* SearchGithubUserView.swift */; };
@@ -16,10 +15,14 @@
 		048F8DA524CAB891002318F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048F8DA324CAB891002318F2 /* LaunchScreen.storyboard */; };
 		048F8DAD24CAD178002318F2 /* SearchGithubUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F8DAC24CAD178002318F2 /* SearchGithubUserViewModel.swift */; };
 		048F8DB024CAD49D002318F2 /* SwiftGRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 048F8DAF24CAD49D002318F2 /* SwiftGRPC */; };
+		04A7021124CFB7EE00B44B95 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7021024CFB7EE00B44B95 /* User.swift */; };
+		04A7021524D0096A00B44B95 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 04A7021424D0096A00B44B95 /* KingfisherSwiftUI */; };
+		04A7021724D0096A00B44B95 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04A7021624D0096A00B44B95 /* Kingfisher */; };
+		04A7021924D00D5A00B44B95 /* ReposCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7021824D00D5A00B44B95 /* ReposCount.swift */; };
+		04A7021B24D013DA00B44B95 /* UserForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7021A24D013DA00B44B95 /* UserForView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		045E57A024CE87E90049F9DF /* GithubUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserService.swift; sourceTree = "<group>"; };
 		048F8D9524CAB88E002318F2 /* getGithub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = getGithub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048F8D9824CAB88E002318F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048F8D9A24CAB88E002318F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +32,9 @@
 		048F8DA424CAB891002318F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		048F8DA624CAB891002318F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		048F8DAC24CAD178002318F2 /* SearchGithubUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGithubUserViewModel.swift; sourceTree = "<group>"; };
+		04A7021024CFB7EE00B44B95 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		04A7021824D00D5A00B44B95 /* ReposCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposCount.swift; sourceTree = "<group>"; };
+		04A7021A24D013DA00B44B95 /* UserForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A7021724D0096A00B44B95 /* Kingfisher in Frameworks */,
+				04A7021524D0096A00B44B95 /* KingfisherSwiftUI in Frameworks */,
 				048F8DB024CAD49D002318F2 /* SwiftGRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,8 +77,9 @@
 				048F8D9E24CAB891002318F2 /* Assets.xcassets */,
 				048F8DA324CAB891002318F2 /* LaunchScreen.storyboard */,
 				048F8DA624CAB891002318F2 /* Info.plist */,
+				04A7020F24CFB7E000B44B95 /* Models */,
+				04A7021224CFB82A00B44B95 /* Network */,
 				048F8DA024CAB891002318F2 /* Preview Content */,
-				045E57A024CE87E90049F9DF /* GithubUserService.swift */,
 			);
 			path = getGithub;
 			sourceTree = "<group>";
@@ -81,6 +90,23 @@
 				048F8DA124CAB891002318F2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		04A7020F24CFB7E000B44B95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04A7021024CFB7EE00B44B95 /* User.swift */,
+				04A7021A24D013DA00B44B95 /* UserForView.swift */,
+				04A7021824D00D5A00B44B95 /* ReposCount.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		04A7021224CFB82A00B44B95 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -101,6 +127,8 @@
 			name = getGithub;
 			packageProductDependencies = (
 				048F8DAF24CAD49D002318F2 /* SwiftGRPC */,
+				04A7021424D0096A00B44B95 /* KingfisherSwiftUI */,
+				04A7021624D0096A00B44B95 /* Kingfisher */,
 			);
 			productName = getGithub;
 			productReference = 048F8D9524CAB88E002318F2 /* getGithub.app */;
@@ -132,6 +160,7 @@
 			mainGroup = 048F8D8C24CAB88E002318F2;
 			packageReferences = (
 				048F8DAE24CAD49D002318F2 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				04A7021324D0096A00B44B95 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 048F8D9624CAB88E002318F2 /* Products */;
 			projectDirPath = "";
@@ -160,8 +189,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045E57A124CE87E90049F9DF /* GithubUserService.swift in Sources */,
 				048F8D9924CAB88E002318F2 /* AppDelegate.swift in Sources */,
+				04A7021B24D013DA00B44B95 /* UserForView.swift in Sources */,
+				04A7021924D00D5A00B44B95 /* ReposCount.swift in Sources */,
+				04A7021124CFB7EE00B44B95 /* User.swift in Sources */,
 				048F8D9B24CAB88E002318F2 /* SceneDelegate.swift in Sources */,
 				048F8DAD24CAD178002318F2 /* SearchGithubUserViewModel.swift in Sources */,
 				048F8D9D24CAB88E002318F2 /* SearchGithubUserView.swift in Sources */,
@@ -368,6 +399,14 @@
 				minimumVersion = 0.11.0;
 			};
 		};
+		04A7021324D0096A00B44B95 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -375,6 +414,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 048F8DAE24CAD49D002318F2 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = SwiftGRPC;
+		};
+		04A7021424D0096A00B44B95 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04A7021324D0096A00B44B95 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
+		};
+		04A7021624D0096A00B44B95 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04A7021324D0096A00B44B95 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
