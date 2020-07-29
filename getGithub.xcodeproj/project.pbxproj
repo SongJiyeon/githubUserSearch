@@ -343,7 +343,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"getGithub/Preview Content\"";
 				DEVELOPMENT_TEAM = UNVQ33RRMX;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = getGithub/Info.plist;
+				INFOPLIST_FILE = getGithub/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,7 +363,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"getGithub/Preview Content\"";
 				DEVELOPMENT_TEAM = UNVQ33RRMX;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = getGithub/Info.plist;
+				INFOPLIST_FILE = getGithub/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -12,7 +12,8 @@ import Combine
 
 class SearchGithubUserViewModel: ObservableObject {
     
-    var publicRepos = 0
+    var page = 1
+    var firstFetch = false
     
     @Published var keyword = ""
     @Published private(set) var users = [UserForView]()
@@ -28,7 +29,8 @@ class SearchGithubUserViewModel: ObservableObject {
             .sink(
                 receiveCompletion: { completion in print("🏀") },
                 receiveValue: { keyword in
-                    self.searchUser(keyword)
+                    firstFetch = true
+                    self.searchUser(keyword, self.page)
             }
         )
             .store(in: &subscriptions)
@@ -38,7 +40,7 @@ class SearchGithubUserViewModel: ObservableObject {
         searchCancellable?.cancel()
     }
     
-    func searchUser(_ keyword: String) {
+    func searchUser(_ keyword: String, _ page: Int) {
         guard !keyword.isEmpty else {
             return users = []
         }
@@ -46,7 +48,8 @@ class SearchGithubUserViewModel: ObservableObject {
         var urlComponents = URLComponents(string: "https://api.github.com/search/users")!
         urlComponents.queryItems = [
             URLQueryItem(name: "q", value: keyword),
-            URLQueryItem(name: "per_page", value: "20")
+            URLQueryItem(name: "per_page", value: "20"),
+            URLQueryItem(name: "page", value: "\(page)")
         ]
         
         var request = URLRequest(url: urlComponents.url!)
