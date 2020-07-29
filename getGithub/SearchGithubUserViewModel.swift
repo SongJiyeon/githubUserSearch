@@ -12,9 +12,10 @@ import Combine
 
 class SearchGithubUserViewModel: ObservableObject {
     
+    var publicRepos = 0
+    
     @Published var keyword = ""
     @Published private(set) var users = [UserForView]()
-    @Published private(set) var images = [User: UIImage]()
     
     private var subscriptions = Set<AnyCancellable>()
     private var searchCancellable: Cancellable? {
@@ -28,8 +29,8 @@ class SearchGithubUserViewModel: ObservableObject {
                 receiveCompletion: { completion in print("🏀") },
                 receiveValue: { keyword in
                     self.searchUser(keyword)
-                }
-            )
+            }
+        )
             .store(in: &subscriptions)
     }
     
@@ -44,11 +45,13 @@ class SearchGithubUserViewModel: ObservableObject {
         
         var urlComponents = URLComponents(string: "https://api.github.com/search/users")!
         urlComponents.queryItems = [
-            URLQueryItem(name: "q", value: keyword)
+            URLQueryItem(name: "q", value: keyword),
+            URLQueryItem(name: "per_page", value: "20")
         ]
         
         var request = URLRequest(url: urlComponents.url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("token \(GITHUB_TOKEN)", forHTTPHeaderField: "Authorization")
         
         searchCancellable = URLSession.shared.dataTaskPublisher(for: request)
             .map { $0.data }
@@ -60,43 +63,39 @@ class SearchGithubUserViewModel: ObservableObject {
                     print(completion)
             },
                 receiveValue: {res in
-                    self.users = res.map { user in
-                        UserForView(
-                            id: user.id,
-                            login: user.login,
-                            avatar_url: user.avatar_url,
-                            public_repos: self.getUserReposCount(username: user.login))
+                    res.forEach { user in
+                        self.getUserReposCount(user)
                     }
             })
     }
     
-    func getUserReposCount(username: String) -> Int {
-        guard !username.isEmpty else {
-            return 0
+    func getUserReposCount(_ user: User) {
+        guard !user.login.isEmpty else {
+            return
         }
         
-        var urlComponents = URLComponents(string: "https://api.github.com/users")!
-        urlComponents.path = "/\(username)"
+        var urlComponents = URLComponents(string: "https://api.github.com")!
+        urlComponents.path = "/users/\(user.login)"
         
         var request = URLRequest(url: urlComponents.url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("token \(GITHUB_TOKEN)", forHTTPHeaderField: "Authorization")
         
-        _ = URLSession.shared.dataTaskPublisher(for: request)
+        URLSession.shared.dataTaskPublisher(for: request)
             .map { $0.data }
-            .decode(type: SearchUserReposResponse.self, decoder: JSONDecoder())
-//            .receive(on: RunLoop.main)
+            .decode(type: UserForView.self, decoder: JSONDecoder())
+            .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { completion in print(completion) },
-                receiveValue: { res in print(res) })
+                receiveValue: { user in
+                    self.users.append(
+                        UserForView(id: user.id, login: user.login, avatar_url: user.avatar_url, public_repos: user.public_repos)
+                    )
+            })
             .store(in: &subscriptions)
-        return 3
     }
 }
 
 struct SearchUserResponse: Decodable {
     var items: [User]
-}
-
-struct SearchUserReposResponse: Decodable {
-    var public_repos: Int
 }
